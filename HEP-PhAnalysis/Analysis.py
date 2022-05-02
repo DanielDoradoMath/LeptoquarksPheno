@@ -1,4 +1,5 @@
 import os
+import csv
 from ROOT import *
 from Particle import Particle
 from Particle import JetVector
@@ -15,14 +16,14 @@ class DelphesAnalysis():
             for row in reader:
                 name_signal_dict = row.pop(0)
                 data[name_signal_dict] = [*row]
-        self.name=name_signal
+        self.name=signal_name
         
         # verify dictionary path    Is name_signal bool?
-        if name_signal:
+        if signal_name:
             try:
                 path_to_signal = data[self.name][0] # Path
             except KeyError:
-                raise Exception("Error: " + name_signal + " Signal not defined")
+                raise Exception("Error: " + signal_name + " Signal not defined")
             bkg = data[self.name][1] # BKG
             bkg = True if bkg == "True" else False
         else:
