@@ -5,6 +5,7 @@ from Particle import Particle
 from Particle import JetVector
 from Particle import MuonVector
 from Particle import ElectronVector
+from etaprogress.progress import ProgressBar
 
 class DelphesAnalysis():
     def __init__(self, signal_name=None):
@@ -709,10 +710,10 @@ class DelphesAnalysis():
             if (ptcut and etacut ):
                 part_dic['electrons'] += [electron]
 
-            part_dic['all_jets']+=part_dic['l_jets']
-            part_dic['all_jets']+=part_dic['b_jets']
-            part_dic['all_jets']+=part_dic['tau_jets']
-            part_dic['all_jets']+=part_dic['other_jets']
+        part_dic['all_jets']+=part_dic['l_jets']
+        part_dic['all_jets']+=part_dic['b_jets']
+        part_dic['all_jets']+=part_dic['tau_jets']
+        part_dic['all_jets']+=part_dic['other_jets']
         
         for key in part_dic:
             part_dic[key].sort(reverse = True, key = Particle.Pt)
@@ -831,7 +832,7 @@ class DelphesAnalysis():
                 j.vDeltaPT(lepton),
                 b.vDeltaPT(tau),
                 b.vDeltaPT(lepton),
-                tau.vDeltaPT(tau), ###
+                tau.vDeltaPT(tau),
                 j.DeltaPhi(b),
                 j.DeltaPhi(tau),
                 j.DeltaPhi(lepton),
@@ -852,7 +853,7 @@ class DelphesAnalysis():
             if electronic:
                 f_electrons.write(str_row)
             else:
-                f_muonic.write(str_row)
+                f_muons.write(str_row)
             
             self.fillJetHistos(jets, metTLV, electronic)
             self.goodEventIndex.append(i)
