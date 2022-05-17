@@ -1,10 +1,10 @@
 import os
 import csv
 import pandas as pd
-from Particle import Particle
-from Particle import JetVector
-from Particle import MuonVector
-from Particle import ElectronVector
+from HEPAnalysis.Particle import Particle
+from HEPAnalysis.Particle import JetVector
+from HEPAnalysis.Particle import MuonVector
+from HEPAnalysis.Particle import ElectronVector
 
 
 # Dictionary structure containing observable name, name w/ units, min & max values

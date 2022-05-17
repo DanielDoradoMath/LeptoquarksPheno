@@ -2,13 +2,13 @@ import os
 import csv
 from ROOT import *
 import pandas as pd
-from Particle import Particle
-from Particle import JetVector
-from Particle import MuonVector
-from Particle import ElectronVector
+from HEPAnalysis.Particle import Particle
+from HEPAnalysis.Particle import JetVector
+from HEPAnalysis.Particle import MuonVector
+from HEPAnalysis.Particle import ElectronVector
 from etaprogress.progress import ProgressBar
 
-class DelphesAnalysis():
+class DelphesSignal():
     def __init__(self, signal_name=None):
         os.system("curl -O https://raw.githubusercontent.com/cfrc2694/Pheno_BSM/main/SimulationsPaths.csv")
         # Reading diccionary path
@@ -86,12 +86,12 @@ class DelphesAnalysis():
             return tree
 
 
-    def writelist(self):
-        os.system("rm -rf {self.name}.root")
-        f =TFile(self.name+".root","RECREATE")
-        self.hist_list.Write("histlist", TObject.kSingleKey)
-        f.ls()
-        print(self.name+" Done!")
+    # def writelist(self):
+    #     os.system("rm -rf {self.name}.root")
+    #     f =TFile(self.name+".root","RECREATE")
+    #     self.hist_list.Write("histlist", TObject.kSingleKey)
+    #     f.ls()
+    #     print(self.name+" Done!")
     
 
     def getGoodJets(self,event):
@@ -176,13 +176,18 @@ class DelphesAnalysis():
 
     def eventSelection(self):
         nEvents=self.tree.GetEntries()
-        self.goodEventIndex=[]
         bar = ProgressBar(nEvents, max_width=60)
         printEachPercent=10.0
         bar.numerator = 0
         print(self.name, bar)
         nSplits=int(100/printEachPercent)
         last_printed=0
+
+        try:
+            os.system("mkdir DataFiles")
+        except:
+            pass
+
         f_electrons = open(self.name+"_electrons.csv", "w")
         f_muons = open(self.name+"_muons.csv", "w")
 
@@ -399,13 +404,12 @@ class DelphesAnalysis():
             
             row_str = str(row)
             row_str = row_str[1:-1]
+            row_str += "\n"
 
             if electronic:
                 f_electrons.write(row_str)
             else:
                 f_muons.write(row_str)
-            
-            self.goodEventIndex.append(i)
             
             if int(nSplits*(i)/nEvents)!=last_printed:
                 last_printed=int(nSplits*i/nEvents)
@@ -413,5 +417,6 @@ class DelphesAnalysis():
         
         f_electrons.close()
         f_muons.close()
+        print(self.name + ': selection done!')
         
-        return self.goodEventIndex
+        return self.hist_list

@@ -33,6 +33,10 @@ class Particle():
         TLV = self.TLV
         return TLV.Eta()
 
+    def Phi(self):
+        TLV = self.TLV
+        return TLV.Phi()
+
     ### Delta methods
 
     def DeltaR(self, v2):
@@ -49,7 +53,7 @@ class Particle():
         return TLV1.DeltaPhi(TLV2)
 
     def sDeltaPT(self, v2):
-        return self.PT() - v2.PT()
+        return self.Pt() - v2.Pt()
 
     def vDeltaPT(self, v2):
         TLV1 = self.TLV
