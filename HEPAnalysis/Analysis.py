@@ -188,8 +188,8 @@ class DelphesSignal():
         except:
             pass
 
-        f_electrons = open(self.name+"_electrons.csv", "w")
-        f_muons = open(self.name+"_muons.csv", "w")
+        f_electrons = open('DataFiles/'+self.name+"_electrons.csv", "w")
+        f_muons = open('DataFiles/'+self.name+"_muons.csv", "w")
 
         column_names = ['M(b+tau)', 
                         'Pt(b+tau)',
@@ -203,44 +203,44 @@ class DelphesSignal():
                         'Pt(b-jet)',
                         'Pt(tau)',
                         'Pt(lpt)',
-                        'Eta(jet)',
-                        'Eta(b-jet)',
-                        'Eta(tau)',
-                        'Eta(lpt)',
-                        'Phi(jet)',
-                        'Phi(b-jet)',
-                        'Phi(tau)',
-                        'Phi(lpt)',
-                        'vDeltaPt(jet,b-jet)',
-                        'vDeltaPt(jet,tau)',
-                        'vDeltaPt(jet,lpt)',
-                        'vDeltaPt(b-jet,tau)',
-                        'vDeltaPt(b-jet,lpt)',
-                        'vDeltaPt(tau,lpt)',
-                        'vDeltaP(jet,b-jet)',
-                        'vDeltaP(jet,tau)',
-                        'vDeltaP(jet,lpt)',
-                        'vDeltaP(b-jet,tau)',
-                        'vDeltaP(b-jet,lpt)',
-                        'vDeltaP(tau,lpt)',
-                        'sDeltaPt(jet,b-jet)',
-                        'sDeltaPt(jet,tau)',
-                        'sDeltaPt(jet,lpt)',
-                        'sDeltaPt(b-jet,tau)',
-                        'sDeltaPt(b-jet,lpt)',
-                        'sDeltaPt(tau,lpt)',
-                        'DeltaPhi(jet,b-jet)',
-                        'DeltaPhi(jet,tau)',
-                        'DeltaPhi(jet,lpt)',
-                        'DeltaPhi(b-jet,tau)',
-                        'DeltaPhi(b-jet,lpt)',
-                        'DeltaPhi(tau,lpt)',
-                        'DeltaEta(jet,b-jet)',
-                        'DeltaEta(jet,tau)',
-                        'DeltaEta(jet,lpt)',
-                        'DeltaEta(b-jet,tau)',
-                        'DeltaEta(b-jet,lpt)',
-                        'DeltaEta(tau,lpt)',
+                        'eta(jet)',
+                        'eta(b-jet)',
+                        'eta(tau)',
+                        'eta(lpt)',
+                        'phi(jet)',
+                        'phi(b-jet)',
+                        'phi(tau)',
+                        'phi(lpt)',
+                        'vDeltaPT(jet b-jet)',
+                        'vDeltaPT(jet tau)',
+                        'vDeltaPT(jet lpt)',
+                        'vDeltaPT(b-jet tau)',
+                        'vDeltaPT(b-jet lpt)',
+                        'vDeltaPT(tau lpt)',
+                        'vDeltaP(jet b-jet)',
+                        'vDeltaP(jet tau)',
+                        'vDeltaP(jet lpt)',
+                        'vDeltaP(b-jet tau)',
+                        'vDeltaP(b-jet lpt)',
+                        'vDeltaP(tau lpt)',
+                        'sDeltaPT(jet b-jet)',
+                        'sDeltaPT(jet tau)',
+                        'sDeltaPT(jet lpt)',
+                        'sDeltaPT(b-jet tau)',
+                        'sDeltaPT(b-jet lpt)',
+                        'sDeltaPT(tau lpt)',
+                        'DeltaPhi(jet b-jet)',
+                        'DeltaPhi(jet tau)',
+                        'DeltaPhi(jet lpt)',
+                        'DeltaPhi(b-jet tau)',
+                        'DeltaPhi(b-jet lpt)',
+                        'DeltaPhi(tau lpt)',
+                        'DeltaEta(jet b-jet)',
+                        'DeltaEta(jet tau)',
+                        'DeltaEta(jet lpt)',
+                        'DeltaEta(b-jet tau)',
+                        'DeltaEta(b-jet lpt)',
+                        'DeltaEta(tau lpt)',
                         'q(tau)*q(lpt)']
 
         header_row = ''
@@ -261,7 +261,7 @@ class DelphesSignal():
             self.hist_list.FindObject("mu-cutflow").Fill(0)
             self.hist_list.FindObject("n_jets").Fill(n_jets)
             
-            if( float(i)/float(nEvents)>=0.002 ): break
+            if( float(i)/float(nEvents)>=0.002 ): break   #Comment after testing
                 
             n_leptons = event.Electron.GetEntries() + event.Muon.GetEntries()
             
